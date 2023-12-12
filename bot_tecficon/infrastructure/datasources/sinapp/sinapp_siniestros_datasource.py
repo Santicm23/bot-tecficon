@@ -10,7 +10,7 @@ from ....domain.entities import Siniestro
 from ....domain.datasources import SiniestrosDatasource
 
 
-class SinappSiniestroDatasource(SiniestrosDatasource):
+class SinappSiniestrosDatasource(SiniestrosDatasource):
 
     def __init__(self):
         self.url = 'http://10.8.0.1:8090/scriptcase/app/Hurtado_Gandini'

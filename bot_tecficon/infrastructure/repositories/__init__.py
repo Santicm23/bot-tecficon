@@ -1,0 +1,4 @@
+
+from .eventos_repository_impl import EventosRepositoryImpl
+from .siniestros_repository_impl import SiniestrosRepositoryImpl
+from .victimas_repositroy_impl import VictimasRepositoryImpl

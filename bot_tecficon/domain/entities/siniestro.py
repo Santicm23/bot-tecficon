@@ -31,7 +31,7 @@ class Siniestro:
     numero_siniestro: str
     placa: str
     fecha_asignacion_siniestro: str
-    id_pais: str
+    ciudad: str
     dpto: str
     producto: str
     fecha_accidente: str
@@ -47,4 +47,4 @@ class Siniestro:
     conductor_asegurado: str
     informe_abogado: str
     id_aseguradora: str = field(default="1")
-    ciudad: str = field(default="CO")
+    id_pais: str = field(default="CO")

@@ -1,10 +1,11 @@
 
 import tkinter as tk
-import time
+# import time
+# import threading
 
 import ttkbootstrap as ttkb
 
-from bot_tecficon.presentation.helpers.sinester_helper import get_all_sinesters
+from ..helpers import iniciar_sesion, get_all_sinesters
 
 
 class HomeScreen(ttkb.Frame):
@@ -23,15 +24,15 @@ class HomeScreen(ttkb.Frame):
             font=("Helvetica", 24)
         )
 
-        self.follow_bot = tk.BooleanVar()
+        # self.follow_bot = tk.BooleanVar()
 
-        self.follow_bot_checker = ttkb.Checkbutton(
-            self,
-            text="Visualizar procedimiento",
-            onvalue=True,
-            offvalue=False,
-            variable=self.follow_bot
-        )
+        # self.follow_bot_checker = ttkb.Checkbutton(
+        #     self,
+        #     text="Visualizar procedimiento",
+        #     onvalue=True,
+        #     offvalue=False,
+        #     variable=self.follow_bot
+        # )
 
         self.sinester_input = ttkb.Entry(
             self,
@@ -53,7 +54,7 @@ class HomeScreen(ttkb.Frame):
         )
 
         self.label.pack(pady=10)
-        self.follow_bot_checker.pack(pady=10)
+        # self.follow_bot_checker.pack(pady=10)
         self.sinester_input.pack()
         self.error_label.pack()
         self.button.pack(pady=10)
@@ -73,8 +74,8 @@ class HomeScreen(ttkb.Frame):
             self.error_label.config(text="Sinester is required")
         else:
             self.error_label.config(text="")
-            get_all_sinesters()
-            time.sleep(3)
 
             self.master.destroy()
-            self.master.quit()
+            # self.master.quit()
+
+            iniciar_sesion()

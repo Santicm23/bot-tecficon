@@ -1,13 +1,18 @@
 
+from bot_tecficon.domain.entities.siniestro import Siniestro
 from ...infrastructure.datasources import SinappSiniestrosDatasource
 from ...infrastructure.repositories import SiniestrosRepositoryImpl
 
 
-def get_all_sinesters() -> list:
-    siniestros_repository = SiniestrosRepositoryImpl(SinappSiniestrosDatasource())
+siniestros_repository = SiniestrosRepositoryImpl(SinappSiniestrosDatasource())
 
-    sinesters = siniestros_repository.get_siniestro_by_id("107431314")
 
-    print(sinesters)
+def get_all_sinesters() -> list[Siniestro]:
+    return siniestros_repository.get_all_siniestros()
 
-    return []
+
+def get_sinester_by_id(id: str) -> Siniestro:
+    return siniestros_repository.get_siniestro_by_id(id)
+
+def add_sineter(sinester: Siniestro) -> bool:
+    return siniestros_repository.add_siniestro(sinester)

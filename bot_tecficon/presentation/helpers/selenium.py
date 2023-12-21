@@ -2,11 +2,13 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+from ...config.constants import environment
+
 
 def iniciar_sesion() -> None:
     driver = webdriver.Chrome()
 
-    driver.get("https://www.allia2net.com.co/ngx-epac-professional/public/home")
+    driver.get(environment.BASE_URL_ALLIA2)
     driver.set_window_size(968, 612)
     driver.find_element(By.ID, "nx-input-0").send_keys("CP301484")
     driver.find_element(By.ID, "nx-input-1").click()

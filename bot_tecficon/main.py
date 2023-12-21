@@ -4,7 +4,7 @@ import tkinter as tk
 import ttkbootstrap as ttkb
 
 from bot_tecficon.config import set_theme
-from bot_tecficon.presentation import HomeScreen
+from bot_tecficon.presentation.screens import HomeScreen
 
 
 def main() -> None:

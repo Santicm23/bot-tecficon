@@ -11,7 +11,7 @@ class SiniestrosDatasource(ABC):
         ...
 
     @abstractmethod
-    def get_siniestro_by_id(self, id_siniestro: str) -> Siniestro:
+    def get_siniestro_by_id(self, id_siniestro: int) -> Siniestro:
         ...
 
     @abstractmethod

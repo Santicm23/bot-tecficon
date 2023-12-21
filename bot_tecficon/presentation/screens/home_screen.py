@@ -5,7 +5,7 @@ import tkinter as tk
 
 import ttkbootstrap as ttkb
 
-from ..helpers import iniciar_sesion, get_all_sinesters
+from ..helpers import iniciar_sesion, get_sinester_by_id
 
 
 class HomeScreen(ttkb.Frame):
@@ -70,12 +70,15 @@ class HomeScreen(ttkb.Frame):
             return False
 
     def start_bot(self) -> None:
-        if self.sinester_input.get() == '':
+        sinester_id = self.sinester_input.get()
+        if sinester_id == '':
             self.error_label.config(text="Sinester is required")
         else:
             self.error_label.config(text="")
 
-            self.master.destroy()
-            # self.master.quit()
+            print(get_sinester_by_id(sinester_id))
 
-            iniciar_sesion()
+            self.master.destroy()
+            self.master.quit()
+
+            # iniciar_sesion()

@@ -1,11 +1,11 @@
 
 from ..errors import SiniestroNoExisteError
-from ...infrastructure.datasources import SinappSiniestrosDatasource
+from ...infrastructure.datasources import SinappSiniestrosDatasource, IverosanSiniestrosDatasource
 from ...infrastructure.repositories import SiniestrosRepositoryImpl
 
 
 __repository_sinapp = SiniestrosRepositoryImpl(SinappSiniestrosDatasource())
-__repository_iverosan = SiniestrosRepositoryImpl(SinappSiniestrosDatasource()) #TODO: corregir nombre de la segunda app
+__repository_iverosan = SiniestrosRepositoryImpl(IverosanSiniestrosDatasource()) #TODO: crear repository
 
 def siniestro_existe(siniestro_id: int) -> bool:
     try:
@@ -16,11 +16,11 @@ def siniestro_existe(siniestro_id: int) -> bool:
     return True
 
 
-def crear_sinistro(siniestro_id: int) -> str:
+def crear_siniestro(siniestro_id: int) -> str:
     '''Crea un siniestro en SINAPP a partir de IVEROSAN''' #TODO: corregir nombre de la segunda app
     
-    if siniestro_existe(siniestro_id):
-        return 'El siniestro ya existe'
+    # if siniestro_existe(siniestro_id):
+    #     return 'El siniestro ya existe'
     
     siniestro = __repository_iverosan.get_siniestro_by_id(siniestro_id)
     

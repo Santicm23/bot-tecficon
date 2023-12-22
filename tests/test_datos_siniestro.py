@@ -10,7 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
-class TestIniciarsesion():
+class TestDatossiniestro():
   def setup_method(self, method):
     self.driver = webdriver.Chrome()
     self.vars = {}
@@ -18,11 +18,19 @@ class TestIniciarsesion():
   def teardown_method(self, method):
     self.driver.quit()
   
-  def test_iniciarsesion(self):
+  def test_datos_siniestro(self):
     self.driver.get("https://www.allia2net.com.co/ngx-epac-professional/public/home")
     self.driver.set_window_size(968, 612)
     self.driver.find_element(By.ID, "nx-input-0").send_keys("CP301484")
     self.driver.find_element(By.ID, "nx-input-1").click()
     self.driver.find_element(By.ID, "nx-input-1").send_keys("Hgdsas9012023")
     self.driver.find_element(By.CSS_SELECTOR, ".nx-button__content-wrapper").click()
+    element = self.driver.find_element(By.CSS_SELECTOR, ".nx-button__content-wrapper")
+    actions = ActionChains(self.driver)
+    actions.move_to_element(element).perform()
+    self.driver.find_element(By.CSS_SELECTOR, ".c-main-navbar__title").click()
+    self.driver.find_element(By.CSS_SELECTOR, ".c-subnavbar__item:nth-child(2) .c-subnavbar__title").click()
+    self.driver.switch_to.frame(0)
+    self.driver.find_element(By.ID, "PENDING").click()
+    self.driver.find_element(By.XPATH, "//*[contains(text(), 'My Button')]")
   

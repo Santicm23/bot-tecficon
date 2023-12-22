@@ -4,10 +4,9 @@ from typing import override
 
 import requests
 
-from bot_tecficon.config.constants import environment
-from bot_tecficon.domain.errors import SiniestroNoExisteError
-from bot_tecficon.infrastructure.mappers import siniestro_mapper
-
+from ....config.constants import environment
+from ....domain.errors import SiniestroNoExisteError
+from ....infrastructure.mappers import siniestro_mapper
 from ....domain.entities import Siniestro
 from ....domain.datasources import SiniestrosDatasource
 

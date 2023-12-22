@@ -5,7 +5,7 @@ import tkinter as tk
 
 import ttkbootstrap as ttkb
 
-from ..helpers import iniciar_sesion, get_sinester_by_id
+from ...domain.use_cases import crear_siniestro
 
 
 class HomeScreen(ttkb.Frame):
@@ -76,9 +76,9 @@ class HomeScreen(ttkb.Frame):
         else:
             self.error_label.config(text="")
 
-            print(get_sinester_by_id(sinester_id))
-
             self.master.destroy()
             self.master.quit()
+
+            crear_siniestro(int(sinester_id))
 
             # iniciar_sesion()

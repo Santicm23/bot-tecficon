@@ -11,7 +11,7 @@ def get_all_sinesters() -> list[Siniestro]:
     return siniestros_repository.get_all_siniestros()
 
 
-def get_sinester_by_id(id: str) -> Siniestro:
+def get_sinester_by_id(id: int) -> Siniestro:
     return siniestros_repository.get_siniestro_by_id(id)
 
 def add_sineter(sinester: Siniestro) -> bool:

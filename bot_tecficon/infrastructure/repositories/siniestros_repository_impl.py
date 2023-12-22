@@ -1,8 +1,8 @@
 
 from typing import override
 
-from bot_tecficon.domain.datasources import SiniestrosDatasource
-from bot_tecficon.domain.entities.siniestro import Siniestro
+from ...domain.datasources import SiniestrosDatasource
+from ...domain.entities.siniestro import Siniestro
 from ...domain.repositories import SiniestrosRepository
 
 

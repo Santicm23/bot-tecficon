@@ -55,21 +55,21 @@ class IverosanSiniestrosDatasource(SiniestrosDatasource):
 
         placa = self.driver.find_element(By.ID, 'vehiclePlate').text
         fecha_asignacion_siniestro = self.driver.find_element(By.ID, 'orderDate').text
-        ciudad = self.driver.find_element(By.ID, '').text # TODO
+        ciudad = self.driver.find_element(By.ID, 'incidentCity').text
         dpto = self.driver.find_element(By.ID, 'incidentLocation_node1').text
         producto = self.driver.find_element(By.ID, 'productName').text
         fecha_accidente = self.driver.find_element(By.ID, 'incidentDate').text
         direccion_ocurrencia = self.driver.find_element(By.ID, 'incidentAddress').text
         tipo_encargo = self.driver.find_element(By.ID, 'orderTypeDesc').text
-        concepto_responsabilidad = self.driver.find_element(By.ID, '').text # TODO
-        lesiones = self.driver.find_element(By.ID, '').text # TODO
-        etapa_proceso_penal = self.driver.find_element(By.ID, '').text # TODO
+        concepto_responsabilidad = self.driver.find_element(By.ID, 'procInstaDesc').text # FIXME preguntar
+        lesiones = self.driver.find_element(By.ID, 'orderTypeDesc').text
+        etapa_proceso_penal = self.driver.find_element(By.ID, 'procInstaDesc').text # FIXME preguntar
         tramitador = self.driver.find_element(By.ID, 'tramitName').text
-        mediador = self.driver.find_element(By.ID, 'agentName').text # FIXME
+        mediador = self.driver.find_element(By.ID, 'agentName').text
         tomador = self.driver.find_element(By.ID, 'holderName').text
         propietario = self.driver.find_element(By.ID, 'ownerName').text
-        conductor_asegurado = self.driver.find_element(By.ID, 'driverName').text # FIXME
-        informe_abogado = self.driver.find_element(By.ID, 'lawyer_tipoDoc').text # FIXME
+        conductor_asegurado = self.driver.find_element(By.ID, 'driverName').text
+        informe_abogado = self.driver.find_element(By.ID, 'incidentVersion').text
 
         time.sleep(5)
         self.driver.quit()

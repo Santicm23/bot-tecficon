@@ -5,7 +5,7 @@ from ...infrastructure.repositories import SiniestrosRepositoryImpl
 
 
 __repository_sinapp = SiniestrosRepositoryImpl(SinappSiniestrosDatasource())
-__repository_iverosan = SiniestrosRepositoryImpl(IverosanSiniestrosDatasource()) #TODO: crear repository
+__repository_iverosan = SiniestrosRepositoryImpl(IverosanSiniestrosDatasource())
 
 def siniestro_existe(siniestro_id: int) -> bool:
     try:
@@ -24,6 +24,6 @@ def crear_siniestro(siniestro_id: int) -> str:
     
     siniestro = __repository_iverosan.get_siniestro_by_id(siniestro_id)
     
-    __repository_sinapp.add_siniestro(siniestro)
+    # __repository_sinapp.add_siniestro(siniestro)
 
     return 'El siniestro se ha creado correctamente'

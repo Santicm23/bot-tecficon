@@ -1,7 +1,5 @@
 
 import tkinter as tk
-# import time
-# import threading
 
 import ttkbootstrap as ttkb
 
@@ -18,21 +16,14 @@ class HomeScreen(ttkb.Frame):
         self.create_widgets()
 
     def create_widgets(self) -> None:
+        self.logo = tk.PhotoImage(
+            file="./bot_tecficon/presentation/assets/images/HGD.png")
+
         self.label = ttkb.Label(
             self,
             text="Sincronización de siniestros",
             font=("Helvetica", 24)
         )
-
-        # self.follow_bot = tk.BooleanVar()
-
-        # self.follow_bot_checker = ttkb.Checkbutton(
-        #     self,
-        #     text="Visualizar procedimiento",
-        #     onvalue=True,
-        #     offvalue=False,
-        #     variable=self.follow_bot
-        # )
 
         self.sinester_input = ttkb.Entry(
             self,
@@ -53,8 +44,11 @@ class HomeScreen(ttkb.Frame):
             font=("Helvetica", 8)
         )
 
+        self.logo_label = ttkb.Label(
+            self,
+            image=self.logo
+        ).pack()
         self.label.pack(pady=10)
-        # self.follow_bot_checker.pack(pady=10)
         self.sinester_input.pack()
         self.error_label.pack()
         self.button.pack(pady=10)
@@ -80,5 +74,3 @@ class HomeScreen(ttkb.Frame):
             self.master.quit()
 
             crear_siniestro(int(sinester_id))
-
-            # iniciar_sesion()

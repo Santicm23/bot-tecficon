@@ -13,7 +13,7 @@ from ....domain.entities import Siniestro
 from ....domain.datasources import SiniestrosDatasource
 
 
-class IverosanSiniestrosDatasource(SiniestrosDatasource):
+class AllianzSiniestrosDatasource(SiniestrosDatasource):
     def __init__(self):
         self.driver: webdriver.Chrome
 
@@ -22,13 +22,13 @@ class IverosanSiniestrosDatasource(SiniestrosDatasource):
     
     def login(self) -> None:
         # Login
-        self.driver.get(environment.BASE_URL_ALLIA2)
+        self.driver.get(environment.BASE_URL_ALLIANZ)
         # self.driver.set_window_size(width=968, height=612)
         self.driver.find_element(
-            By.ID, "nx-input-0").send_keys(environment.USER_ALLIA2)
+            By.ID, "nx-input-0").send_keys(environment.USER_ALLIANZ)
         self.driver.find_element(By.ID, "nx-input-1").click()
         self.driver.find_element(
-            By.ID, "nx-input-1").send_keys(environment.PASS_ALLIA2)
+            By.ID, "nx-input-1").send_keys(environment.PASS_ALLIANZ)
         self.driver.find_element(
             By.CSS_SELECTOR, ".nx-button__content-wrapper").click()
         time.sleep(5)

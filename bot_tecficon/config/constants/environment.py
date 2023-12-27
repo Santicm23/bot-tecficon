@@ -12,6 +12,6 @@ TOK = get_env('TOK')
 
 BASE_URL_SINAPP = 'http://10.8.0.1:8090/scriptcase/app/Hurtado_Gandini'
 
-BASE_URL_ALLIA2 = 'https://www.allia2net.com.co/ngx-epac-professional/public/home'
-USER_ALLIA2 = get_env('USER_ALLIA2')
-PASS_ALLIA2 = get_env('PASS_ALLIA2')
+BASE_URL_ALLIANZ = 'https://www.allia2net.com.co/ngx-epac-professional/public/home'
+USER_ALLIANZ = get_env('USER_ALLIANZ2')
+PASS_ALLIANZ = get_env('PASS_ALLIANZ2')

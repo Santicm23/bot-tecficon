@@ -1,11 +1,11 @@
 
 from ..errors import SiniestroNoExisteError
-from ...infrastructure.datasources import SinappSiniestrosDatasource, IverosanSiniestrosDatasource
+from ...infrastructure.datasources import SinappSiniestrosDatasource, AllianzSiniestrosDatasource
 from ...infrastructure.repositories import SiniestrosRepositoryImpl
 
 
 __repository_sinapp = SiniestrosRepositoryImpl(SinappSiniestrosDatasource())
-__repository_iverosan = SiniestrosRepositoryImpl(IverosanSiniestrosDatasource())
+__repository_allianz = SiniestrosRepositoryImpl(AllianzSiniestrosDatasource())
 
 def siniestro_existe(siniestro_id: int) -> bool:
     try:
@@ -17,13 +17,13 @@ def siniestro_existe(siniestro_id: int) -> bool:
 
 
 def crear_siniestro(siniestro_id: int) -> str:
-    '''Crea un siniestro en SINAPP a partir de IVEROSAN''' #TODO: corregir nombre de la segunda app
+    '''Crea un siniestro en SINAPP a partir de Allianz''' #TODO: corregir nombre de la segunda app
     
-    # if siniestro_existe(siniestro_id):
-    #     return 'El siniestro ya existe'
+    if siniestro_existe(siniestro_id):
+        return 'El siniestro ya existe'
     
-    siniestro = __repository_iverosan.get_siniestro_by_id(siniestro_id)
+    siniestro = __repository_allianz.get_siniestro_by_id(siniestro_id)
     
-    # __repository_sinapp.add_siniestro(siniestro)
+    __repository_sinapp.add_siniestro(siniestro)
 
     return 'El siniestro se ha creado correctamente'

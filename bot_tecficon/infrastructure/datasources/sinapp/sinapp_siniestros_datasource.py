@@ -30,10 +30,10 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
         return [siniestro_mapper.sinapp_siniestro_from_json(json) for json in data['data']]
 
     @override
-    def get_siniestro_by_id(self, siniestro_id: int) -> Siniestro:
+    def get_siniestro_by_id(self, id_siniestro: int) -> Siniestro:
         res = self.session.get(
             f'{environment.BASE_URL_SINAPP}/ep_ver_siniestro',
-            params={'siniestro': siniestro_id},
+            params={'siniestro': id_siniestro},
             timeout=5
         )
 
@@ -41,7 +41,7 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
         data = json.loads(data, strict=False)
 
         if data['error'] is not None and len(data['error']) != 0:
-            raise SiniestroNoExisteError(siniestro_id)
+            raise SiniestroNoExisteError(id_siniestro)
 
         return siniestro_mapper.sinapp_siniestro_from_json(data['data'][0])
 

@@ -1,4 +1,5 @@
 
+from typing import Any
 import tkinter as tk
 
 import ttkbootstrap as ttkb
@@ -7,7 +8,7 @@ from ...domain.use_cases import crear_siniestro
 
 
 class HomeScreen(ttkb.Frame):
-    def __init__(self, master: ttkb.Window, *args, **kwargs) -> None:
+    def __init__(self, master: ttkb.Window, *args: Any, **kwargs: Any) -> None:
         super().__init__(master, *args, **kwargs)
         self.master = master
 

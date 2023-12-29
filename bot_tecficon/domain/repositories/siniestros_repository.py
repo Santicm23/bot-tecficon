@@ -11,7 +11,7 @@ class SiniestrosRepository(ABC):
         ...
     
     @abstractmethod
-    def get_siniestro_by_id(self, id_siniestro: int) -> dict:
+    def get_siniestro_by_id(self, id_siniestro: int) -> Siniestro:
         ...
     
     @abstractmethod

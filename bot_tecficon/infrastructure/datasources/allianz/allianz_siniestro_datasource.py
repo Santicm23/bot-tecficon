@@ -1,5 +1,4 @@
 
-import re
 import time
 from typing import override
 
@@ -98,7 +97,7 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
             By.ID, 'incidentAddress').get_attribute('value')
 
         tipo_encargo = self.driver.find_element(
-            By.ID, 'orderTypeDesc').get_attribute('value')
+            By.ID, '???').get_attribute('value') #! FIXME (cuando se pueda corregir)
 
         desc_instancia_procedimiento = self.str_optional_to_str(self.driver.find_element(
             By.ID, 'procInstaDesc').get_attribute('value')).split(' - ')

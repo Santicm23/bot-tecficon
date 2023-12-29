@@ -1,4 +1,5 @@
 
+import re
 import time
 from typing import override
 
@@ -19,7 +20,12 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
 
     def str_optional_to_str(self, str_optional: str | None) -> str:
         return str_optional if str_optional else ''
-    
+
+    def format_date(self, date: str) -> str:
+        date_split = date.split('/')
+        date_split.reverse()
+        return f'{date_split[0]}-{date_split[1]}-{date_split[2]}'
+
     def login(self) -> None:
         # Login
         self.driver.get(environment.BASE_URL_ALLIANZ)
@@ -68,20 +74,25 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         placa = self.driver.find_element(
             By.ID, 'vehiclePlate').get_attribute('value')
 
-        fecha_asignacion_siniestro = self.driver.find_element(
-            By.ID, 'orderDate').get_attribute('value')
+        fecha_asignacion_siniestro = self.str_optional_to_str(self.driver.find_element(
+            By.ID, 'orderDate').get_attribute('value'))
+        
+        fecha_asignacion_siniestro = self.format_date(fecha_asignacion_siniestro)
 
         ciudad = self.driver.find_element(
             By.ID, 'incidentCity').get_attribute('value')
 
-        dpto = Select(self.driver.find_element(By.ID, 'incidentLocation_node1'))
+        dpto = Select(self.driver.find_element(
+            By.ID, 'incidentLocation_node1'))
         dpto = dpto.first_selected_option.text
 
         producto = self.driver.find_element(
             By.ID, 'productName').get_attribute('value')
 
-        fecha_accidente = self.driver.find_element(
-            By.ID, 'incidentDate').get_attribute('value')
+        fecha_accidente = self.str_optional_to_str(self.driver.find_element(
+            By.ID, 'incidentDate').get_attribute('value'))
+
+        fecha_accidente = self.format_date(fecha_accidente)
 
         direccion_ocurrencia = self.driver.find_element(
             By.ID, 'incidentAddress').get_attribute('value')
@@ -127,12 +138,11 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         siniestro = Siniestro(
             numero_siniestro=str(id_siniestro),
             placa=self.str_optional_to_str(placa),
-            fecha_asignacion_siniestro=self.str_optional_to_str(
-                fecha_asignacion_siniestro),
+            fecha_asignacion_siniestro=fecha_asignacion_siniestro,
             ciudad=self.str_optional_to_str(ciudad),
             dpto=dpto,
             producto=self.str_optional_to_str(producto),
-            fecha_accidente=self.str_optional_to_str(fecha_accidente),
+            fecha_accidente=fecha_accidente,
             direccion_ocurrencia=self.str_optional_to_str(
                 direccion_ocurrencia),
             tipo_encargo=self.str_optional_to_str(tipo_encargo),
@@ -147,10 +157,8 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
             informe_abogado=self.str_optional_to_str(informe_abogado)
         )
 
-        print(siniestro)
-
         return siniestro
 
     @override
-    def add_siniestro(self, siniestro: Siniestro) -> bool:
+    def add_siniestro(self, siniestro: Siniestro) -> None:
         raise

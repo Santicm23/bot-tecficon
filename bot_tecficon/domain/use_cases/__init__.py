@@ -1,5 +1,6 @@
-from .crear_siniestro import crear_siniestro
+from .crear_siniestro import crear_siniestro, siniestro_existe
 
 __all__ = [
-    "crear_siniestro"
+    "crear_siniestro",
+    "siniestro_existe"
 ]

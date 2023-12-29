@@ -5,7 +5,7 @@ from typing import override
 import requests
 
 from ....config.constants import environment
-from ....domain.errors import SiniestroNoExisteError
+from ....domain.errors import SiniestroNoExisteError, CrearSiniestroError
 from ....infrastructure.mappers import siniestro_mapper
 from ....domain.entities import Siniestro
 from ....domain.datasources import SiniestrosDatasource
@@ -46,7 +46,8 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
         return siniestro_mapper.sinapp_siniestro_from_json(data['data'][0])
 
     @override
-    def add_siniestro(self, siniestro: Siniestro) -> bool:
+    def add_siniestro(self, siniestro: Siniestro) -> None:
+        print(json.dumps(siniestro_mapper.sinapp_siniestro_to_json(siniestro)))
         res = self.session.post(
             f'{environment.BASE_URL_SINAPP}/ep_crear_siniestro',
             data=siniestro_mapper.sinapp_siniestro_to_json(siniestro),
@@ -56,4 +57,6 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
         data = res.text
         data = json.loads(data, strict=False)
 
-        return res.status_code < 300
+        if data['error'] is not None and len(data['error']) != 0:
+            print(data['error'])
+            raise CrearSiniestroError(int(siniestro.numero_siniestro))

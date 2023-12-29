@@ -19,5 +19,5 @@ class SiniestrosRepositoryImpl(SiniestrosRepository):
         return self.datasource.get_siniestro_by_id(siniestro_id)
 
     @override
-    def add_siniestro(self, siniestro: Siniestro) -> bool:
+    def add_siniestro(self, siniestro: Siniestro) -> None:
         return self.datasource.add_siniestro(siniestro)

@@ -15,5 +15,5 @@ class SiniestrosDatasource(ABC):
         ...
 
     @abstractmethod
-    def add_siniestro(self, siniestro: Siniestro) -> bool:
+    def add_siniestro(self, siniestro: Siniestro) -> None:
         ...

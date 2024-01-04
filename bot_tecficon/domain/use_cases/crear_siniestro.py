@@ -17,7 +17,7 @@ def siniestro_existe(siniestro_id: int) -> bool:
 
 
 def crear_siniestro(siniestro_id: int) -> str:
-    '''Crea un siniestro en SINAPP a partir de Allianz''' #TODO: corregir nombre de la segunda app
+    '''Crea un siniestro en SINAPP a partir de Allianz'''
     
     if siniestro_existe(siniestro_id):
         return 'El siniestro ya existe'

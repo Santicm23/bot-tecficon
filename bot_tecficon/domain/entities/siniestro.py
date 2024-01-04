@@ -1,5 +1,5 @@
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 """
 {
@@ -28,6 +28,7 @@ from dataclasses import dataclass, field
 
 @dataclass
 class Siniestro:
+    id_aseguradora: str
     numero_siniestro: str
     placa: str
     fecha_asignacion_siniestro: str
@@ -46,5 +47,4 @@ class Siniestro:
     propietario: str
     conductor_asegurado: str
     informe_abogado: str
-    id_aseguradora: str = field(default="1")
-    id_pais: str = field(default="CO")
+    id_pais: str

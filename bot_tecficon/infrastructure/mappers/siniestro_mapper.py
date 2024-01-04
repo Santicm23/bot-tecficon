@@ -24,6 +24,8 @@ def sinapp_siniestro_from_json(json: dict[str, Any]) -> Siniestro:
         tipo_encargo=json["id_tipo_encargo"],
         tomador=json["nombre_tomador"],
         tramitador=json["tramitador"],
+        id_aseguradora=json["id_aseguradora"],
+        id_pais=json["id_pais"]
     )
 
 

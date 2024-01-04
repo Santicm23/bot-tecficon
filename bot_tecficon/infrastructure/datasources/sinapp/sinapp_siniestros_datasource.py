@@ -32,7 +32,7 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
     @override
     def get_siniestro_by_id(self, id_siniestro: int) -> Siniestro:
         res = self.session.get(
-            f'{environment.BASE_URL_SINAPP}/ep_ver_siniestro',
+            f'{environment.BASE_URL_SINAPP}/ep_ver_siniestro/',
             params={'siniestro': id_siniestro},
             timeout=5
         )
@@ -47,16 +47,17 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
 
     @override
     def add_siniestro(self, siniestro: Siniestro) -> None:
-        print(json.dumps(siniestro_mapper.sinapp_siniestro_to_json(siniestro)))
+        send_json = siniestro_mapper.sinapp_siniestro_to_json(siniestro)
+        print(send_json)
         res = self.session.post(
-            f'{environment.BASE_URL_SINAPP}/ep_crear_siniestro',
-            data=siniestro_mapper.sinapp_siniestro_to_json(siniestro),
+            f'{environment.BASE_URL_SINAPP}/ep_crear_siniestro/',
+            data=json.dumps(send_json),
             timeout=5
         )
 
         data = res.text
         data = json.loads(data, strict=False)
 
-        if data['error'] is not None and len(data['error']) != 0:
-            print(data['error'])
+        if 'Excepciones' in data and len(data['error']) != 0:
+            print(data['Excepciones'])
             raise CrearSiniestroError(int(siniestro.numero_siniestro))

@@ -97,7 +97,9 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
             By.ID, 'incidentAddress').get_attribute('value')
 
         tipo_encargo = self.driver.find_element(
-            By.ID, '???').get_attribute('value') #! FIXME (cuando se pueda corregir)
+            By.ID, 'procTypeDesc').get_attribute('value')
+        
+        tipo_encargo = tipo_encargo.lower() if tipo_encargo else ''
 
         desc_instancia_procedimiento = self.str_optional_to_str(self.driver.find_element(
             By.ID, 'procInstaDesc').get_attribute('value')).split(' - ')
@@ -135,6 +137,7 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         self.driver.quit()
 
         siniestro = Siniestro(
+            #to utf-8
             numero_siniestro=str(id_siniestro),
             placa=self.str_optional_to_str(placa),
             fecha_asignacion_siniestro=fecha_asignacion_siniestro,
@@ -153,7 +156,9 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
             tomador=self.str_optional_to_str(tomador),
             propietario=self.str_optional_to_str(propietario),
             conductor_asegurado=self.str_optional_to_str(conductor_asegurado),
-            informe_abogado=self.str_optional_to_str(informe_abogado)
+            informe_abogado=self.str_optional_to_str(informe_abogado),
+            id_aseguradora='1',
+            id_pais='CO'
         )
 
         return siniestro

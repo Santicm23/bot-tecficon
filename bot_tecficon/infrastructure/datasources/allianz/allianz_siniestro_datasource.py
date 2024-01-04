@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
 from ....config.constants import environment
-from ....domain.errors import SiniestroNoExisteError
+from ....domain.errors import SiniestroNoExisteError, SeleniumError
 from ....domain.entities import Siniestro
 from ....domain.datasources import SiniestrosDatasource
 
@@ -51,12 +51,7 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         self.driver.switch_to.frame(0)
         self.driver.find_element(By.ID, "PENDING").click()
 
-    @override
-    def get_all_siniestros(self) -> list[Siniestro]:
-        raise
-
-    @override
-    def get_siniestro_by_id(self, id_siniestro: int) -> Siniestro:
+    def read_sinester_selenium(self, id_siniestro: int) -> Siniestro:
         self.driver = webdriver.Chrome()
 
         self.login()
@@ -75,8 +70,9 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
 
         fecha_asignacion_siniestro = self.str_optional_to_str(self.driver.find_element(
             By.ID, 'orderDate').get_attribute('value'))
-        
-        fecha_asignacion_siniestro = self.format_date(fecha_asignacion_siniestro)
+
+        fecha_asignacion_siniestro = self.format_date(
+            fecha_asignacion_siniestro)
 
         ciudad = self.driver.find_element(
             By.ID, 'incidentCity').get_attribute('value')
@@ -98,7 +94,7 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
 
         tipo_encargo = self.driver.find_element(
             By.ID, 'procTypeDesc').get_attribute('value')
-        
+
         tipo_encargo = tipo_encargo.lower() if tipo_encargo else ''
 
         desc_instancia_procedimiento = self.str_optional_to_str(self.driver.find_element(
@@ -137,7 +133,6 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         self.driver.quit()
 
         siniestro = Siniestro(
-            #to utf-8
             numero_siniestro=str(id_siniestro),
             placa=self.str_optional_to_str(placa),
             fecha_asignacion_siniestro=fecha_asignacion_siniestro,
@@ -162,6 +157,17 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         )
 
         return siniestro
+
+    @override
+    def get_all_siniestros(self) -> list[Siniestro]:
+        raise
+
+    @override
+    def get_siniestro_by_id(self, id_siniestro: int) -> Siniestro:
+        try:
+            return self.read_sinester_selenium(id_siniestro)
+        except:
+            raise SeleniumError()
 
     @override
     def add_siniestro(self, siniestro: Siniestro) -> None:

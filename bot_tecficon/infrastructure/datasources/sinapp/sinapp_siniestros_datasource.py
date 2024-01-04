@@ -59,5 +59,4 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
         data = json.loads(data, strict=False)
 
         if 'Excepciones' in data and len(data['error']) != 0:
-            print(data['Excepciones'])
             raise CrearSiniestroError(int(siniestro.numero_siniestro))

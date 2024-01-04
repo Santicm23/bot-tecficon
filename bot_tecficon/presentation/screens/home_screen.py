@@ -3,8 +3,10 @@ from typing import Any
 import tkinter as tk
 
 import ttkbootstrap as ttkb
+from requests.exceptions import ConnectTimeout
 
 from ...domain.use_cases import crear_siniestro
+from ...domain.errors import Error
 
 
 class HomeScreen(ttkb.Frame):
@@ -63,6 +65,30 @@ class HomeScreen(ttkb.Frame):
             return True
         except ValueError:
             return False
+    
+    def create_error_modal(self, error: Error) -> None:
+        new_window = tk.Toplevel(self.master)
+
+        new_window.title("Error")
+        new_window.geometry("400x300")
+        new_window.resizable(False, False)
+
+        error_label = ttkb.Label(
+            new_window,
+            text=error.message,
+            font=("Helvetica", 16),
+            wraplength=350
+        )
+
+        close_button = ttkb.Button(
+            new_window,
+            text="Aceptar",
+            command=self.master.destroy,
+            style="danger.TButton",
+        )
+
+        error_label.pack(pady=50)
+        close_button.pack()
 
     def start_bot(self) -> None:
         sinester_id = self.sinester_input.get()
@@ -71,7 +97,11 @@ class HomeScreen(ttkb.Frame):
         else:
             self.error_label.config(text="")
 
-            self.master.destroy()
-            self.master.quit()
-
-            crear_siniestro(int(sinester_id))
+            try:
+                crear_siniestro(int(sinester_id))
+            except Error as err:
+                self.create_error_modal(err)
+            except ConnectTimeout as err:
+                self.create_error_modal(Error("No se pudo conectar con el servidor"))
+            except Exception as err:
+                self.create_error_modal(Error("Error inesperado, intente nuevamente"))

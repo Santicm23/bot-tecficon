@@ -7,15 +7,17 @@ readme = "README.md"
 
 [tool.poetry.scripts]
 app = "bot_tecficon.main:main"
+build = "bot_tecficon.build:main"
 
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "3.12"
 ttkbootstrap = "^1.10.1"
 requests = "^2.31.0"
 python-dotenv = "^1.0.0"
 selenium = "^4.16.0"
 pytest = "^7.4.3"
+pyinstaller = "^6.3.0"
 
 
 [build-system]

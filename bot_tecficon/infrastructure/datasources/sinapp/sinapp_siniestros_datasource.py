@@ -41,7 +41,7 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
         data = json.loads(data, strict=False)
 
         if data['error'] is not None and len(data['error']) != 0:
-            raise SiniestroNoExisteError(id_siniestro)
+            raise SiniestroNoExisteError(id_siniestro, 'Sinapp')
 
         return siniestro_mapper.sinapp_siniestro_from_json(data['data'][0])
 

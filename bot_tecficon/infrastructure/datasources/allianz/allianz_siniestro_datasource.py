@@ -47,7 +47,7 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         subnavbar_el = self.driver.find_element(
             By.CSS_SELECTOR, ".c-subnavbar__item:nth-child(2) .c-subnavbar__title")
         actions.move_to_element(subnavbar_el).click().perform()
-        time.sleep(2)
+        time.sleep(3)
         self.driver.switch_to.frame(0)
         self.driver.find_element(By.ID, "PENDING").click()
 
@@ -63,7 +63,7 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         except:
             # Si no existe el siniestro, cerrar el driver y lanzar excepción
             self.driver.quit()
-            raise SiniestroNoExisteError(id_siniestro)
+            raise SiniestroNoExisteError(id_siniestro, 'Allianz')
 
         placa = self.driver.find_element(
             By.ID, 'vehiclePlate').get_attribute('value')
@@ -166,7 +166,9 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
     def get_siniestro_by_id(self, id_siniestro: int) -> Siniestro:
         try:
             return self.read_sinester_selenium(id_siniestro)
-        except:
+        except SiniestroNoExisteError as e:
+            raise e
+        except Exception:
             raise SeleniumError()
 
     @override

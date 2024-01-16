@@ -21,7 +21,7 @@ def crear_siniestro(siniestro_id: int) -> None:
     '''Crea un siniestro en SINAPP a partir de Allianz'''
 
     if siniestro_existe(siniestro_id):
-        raise SiniestroYaExisteError(siniestro_id)
+        raise SiniestroYaExisteError(siniestro_id, 'Sinapp')
 
     siniestro = __repository_allianz.get_siniestro_by_id(siniestro_id)
 

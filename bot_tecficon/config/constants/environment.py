@@ -14,7 +14,7 @@ def get_env(key: str) -> str:
 
 TOK = get_env('TOK')
 
-BASE_URL_SINAPP = get_env('BASE_URL_SINAPP')
+BASE_URL_SINAPP = 'https://sinapp.hgdsas.com/'
 
 BASE_URL_ALLIANZ = 'https://www.allia2net.com.co/ngx-epac-professional/public/home'
 USER_ALLIANZ = get_env('USER_ALLIANZ')

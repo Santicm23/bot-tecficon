@@ -22,7 +22,7 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
     @override
     def get_all_siniestros(self) -> list[Siniestro]:
         res = self.session.get(
-            f'{environment.BASE_URL_SINAPP}/ep_lista_siniestros', timeout=5)
+            f'{environment.BASE_URL_SINAPP}/ep_lista_siniestros/', timeout=5)
 
         data = res.text
         data = json.loads(data, strict=False)

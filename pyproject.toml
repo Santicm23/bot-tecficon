@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bot-tecficon"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["Santicm23 <santicastrom@outlook.com>"]
 readme = "README.md"

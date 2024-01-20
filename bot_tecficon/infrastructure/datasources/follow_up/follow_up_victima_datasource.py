@@ -5,13 +5,13 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-from bot_tecficon.config.constants import environment
+from ....config.constants import environment
 
-from ....domain.entities import Siniestro
-from ....domain.datasources import SiniestrosDatasource
+from ....domain.entities import Victima
+from ....domain.datasources import VictimasDatasource
 
 
-class SinappSiniestrosDatasource(SiniestrosDatasource):
+class SinappSiniestrosDatasource(VictimasDatasource):
     def __init__(self):
         self.driver: webdriver.Chrome
 
@@ -35,22 +35,20 @@ class SinappSiniestrosDatasource(SiniestrosDatasource):
         self.driver.find_element(By.CSS_SELECTOR, ".fa-file").click()
 
     @override
-    def get_all_siniestros(self) -> list[Siniestro]:
+    def get_victimas_by_siniestro(self, id_siniestro: str) -> list[Victima]:
         raise
 
     @override
-    def get_siniestro_by_id(self, id_siniestro: int) -> Siniestro:
-        raise
-
-    @override
-    def add_siniestro(self, siniestro: Siniestro) -> None:
+    def add_victima_to_siniestro(self, victima: Victima, id_siniestro: str) -> bool:
         self.driver = webdriver.Chrome()
 
         self.login()
 
         time.sleep(5)
 
-        self.driver.find_element(By.ID, "newclaimid").send_keys(siniestro.numero_siniestro)
-        self.driver.find_element(By.ID, "newclaimpatientdocument").send_keys() # ?
+        self.driver.find_element(By.ID, "newclaimid").send_keys(id_siniestro)
+        self.driver.find_element(
+            By.ID, "newclaimpatientdocument").send_keys()  # ?
         self.driver.find_element(By.ID, "").send_keys()
 
+        return True

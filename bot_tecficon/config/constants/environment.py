@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 
 
+dev = True #! Change to False when deploying to production (DANGER)
+
 load_dotenv()
 
 def get_env(key: str) -> str:
@@ -14,7 +16,7 @@ def get_env(key: str) -> str:
 
 TOK = get_env('TOK')
 
-BASE_URL_SINAPP = 'https://sinapp.hgdsas.com/'
+BASE_URL_SINAPP = 'http://10.8.0.1:8090/scriptcase/app/Hurtado_Gandini/' if dev else 'https://sinapp.hgdsas.com/'
 
 BASE_URL_ALLIANZ = 'https://www.allia2net.com.co/ngx-epac-professional/public/home'
 USER_ALLIANZ = get_env('USER_ALLIANZ')

@@ -3,14 +3,13 @@ import time
 from typing import override
 
 from selenium import webdriver
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
-from ....config.constants import environment
-from ....domain.errors import SiniestroNoExisteError, SeleniumError
-from ....domain.entities import Siniestro
+from .login import login_allianz
 from ....domain.datasources import SiniestrosDatasource
+from ....domain.entities import Siniestro
+from ....domain.errors import SeleniumError, SiniestroNoExisteError
 
 
 class AllianzSiniestrosDatasource(SiniestrosDatasource):
@@ -25,36 +24,10 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         date_split.reverse()
         return f'{date_split[0]}-{date_split[1]}-{date_split[2]}'
 
-    def login(self) -> None:
-        # Login
-        self.driver.get(environment.BASE_URL_ALLIANZ)
-        # self.driver.set_window_size(width=968, height=612)
-        self.driver.find_element(
-            By.ID, "nx-input-0").send_keys(environment.USER_ALLIANZ)
-        self.driver.find_element(By.ID, "nx-input-1").click()
-        self.driver.find_element(
-            By.ID, "nx-input-1").send_keys(environment.PASS_ALLIANZ)
-        self.driver.find_element(
-            By.CSS_SELECTOR, ".nx-button__content-wrapper").click()
-        time.sleep(5)
-
-        # Entrar a página de siniestros
-        element = self.driver.find_element(
-            By.CSS_SELECTOR, ".c-main-navbar__link")
-        actions = ActionChains(self.driver)
-        actions.move_to_element(element).click().perform()
-        time.sleep(2)
-        subnavbar_el = self.driver.find_element(
-            By.CSS_SELECTOR, ".c-subnavbar__item:nth-child(2) .c-subnavbar__title")
-        actions.move_to_element(subnavbar_el).click().perform()
-        time.sleep(3)
-        self.driver.switch_to.frame(0)
-        self.driver.find_element(By.ID, "PENDING").click()
-
     def read_sinester_selenium(self, id_siniestro: int) -> Siniestro:
         self.driver = webdriver.Chrome()
 
-        self.login()
+        login_allianz(self.driver)
 
         # Buscar siniestro
         try:

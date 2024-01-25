@@ -1,5 +1,5 @@
 
-from . import Error
+from .error import Error
 
 
 class SiniestroYaExisteError(Error):

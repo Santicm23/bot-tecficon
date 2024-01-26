@@ -1,4 +1,3 @@
-
 from dataclasses import dataclass
 
 """
@@ -25,6 +24,7 @@ from dataclasses import dataclass
     "informe_abogado":"este es el informe del abogado"
 },
 """
+
 
 @dataclass
 class Siniestro:

@@ -1,7 +1,6 @@
-
 from dataclasses import dataclass
 
-'''
+"""
 {
     "s.numero_siniestro": "82459275",
     "e.id_evento_sin": "1",
@@ -15,7 +14,7 @@ from dataclasses import dataclass
     "sincronizarfu": "N",
     "sincronizarib": "N"
 }
-'''
+"""
 
 
 @dataclass

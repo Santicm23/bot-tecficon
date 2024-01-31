@@ -18,7 +18,7 @@ class FollowUpVictimasDatasource(VictimasDatasource):
         raise
 
     @override
-    def add_victima_to_siniestro(self, victima: Victima, id_siniestro: str) -> bool:
+    def add_victima_to_siniestro(self, victima: Victima, id_siniestro: str) -> None:
         self.driver = webdriver.Chrome()
 
         login_follow_up(self.driver)
@@ -29,4 +29,4 @@ class FollowUpVictimasDatasource(VictimasDatasource):
         self.driver.find_element(By.ID, "newclaimpatientdocument").send_keys()  # ?
         self.driver.find_element(By.ID, "").send_keys()
 
-        return True
+        raise

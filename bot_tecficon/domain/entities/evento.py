@@ -24,3 +24,4 @@ class Evento:
     descripcion: str
     usuario_creacion: str
     notificar: str
+    modelo: int = 9127  # ? preguntar

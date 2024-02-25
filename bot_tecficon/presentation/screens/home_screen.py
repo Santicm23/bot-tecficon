@@ -5,7 +5,11 @@ import ttkbootstrap as ttkb
 from requests.exceptions import ConnectTimeout
 
 from ...domain.errors import Error
-from ...domain.use_cases import crear_siniestro, sincronizar_eventos
+from ...domain.use_cases import (
+    actualizar_victimas,
+    crear_siniestro,
+    sincronizar_eventos,
+)
 
 
 class HomeScreen(ttkb.Frame):
@@ -45,7 +49,9 @@ class HomeScreen(ttkb.Frame):
         )
 
         self.crear_victimas_button = ttkb.Button(
-            self, text="Crear víctimas FU", command=lambda: None
+            self,
+            text="Crear víctimas FU",
+            command=lambda: self.start_bot(self.actualizar_victimas),
         )
 
         self.sincronizar_eventos_button = ttkb.Button(
@@ -136,6 +142,9 @@ class HomeScreen(ttkb.Frame):
         crear_siniestro(sinester_id)
 
         self.create_succes_modal("Siniestro creado con éxito")
+
+    def actualizar_victimas(self, sinester_id: int) -> None:
+        actualizar_victimas(sinester_id)
 
     def sincronizar_eventos(self, sinester_id: int) -> None:
         sincronizar_eventos(sinester_id)

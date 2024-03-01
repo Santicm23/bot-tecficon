@@ -1,4 +1,5 @@
 import time
+import traceback
 from typing import override
 
 from selenium import webdriver
@@ -29,7 +30,7 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         login_allianz(self.driver)
 
         time.sleep(3)
-        self.driver.switch_to.frame(0)
+
         self.driver.find_element(By.ID, "PENDING").click()
 
         # Buscar siniestro
@@ -148,6 +149,8 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
         except SiniestroNoExisteError as e:
             raise e
         except Exception:
+            self.driver.quit()
+            print(traceback.format_exc())
             raise SeleniumError()
 
     @override

@@ -14,11 +14,11 @@ class FollowUpVictimasDatasource(VictimasDatasource):
         self.driver: webdriver.Chrome
 
     @override
-    def get_victimas_by_siniestro(self, id_siniestro: str) -> list[Victima]:
+    def get_victimas_by_siniestro(self, id_siniestro: int) -> list[Victima]:
         raise
 
     @override
-    def add_victima_to_siniestro(self, victima: Victima, id_siniestro: str) -> None:
+    def add_victima_to_siniestro(self, victima: Victima, id_siniestro: int) -> None:
         self.driver = webdriver.Chrome()
 
         login_follow_up(self.driver)

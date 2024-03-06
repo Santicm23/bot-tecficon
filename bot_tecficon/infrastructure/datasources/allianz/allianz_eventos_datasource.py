@@ -25,7 +25,9 @@ class AllianzEventosDatasource(EventosDatasource):
         return []
 
     @override
-    def add_evento_to_siniestro(self, evento: Evento, id_siniestro: int) -> None:
+    def add_eventos_to_siniestro(
+        self, eventos: list[Evento], id_siniestro: int
+    ) -> None:
         self.driver = webdriver.Chrome()
 
         login_allianz(self.driver)
@@ -40,19 +42,25 @@ class AllianzEventosDatasource(EventosDatasource):
 
         self.driver.switch_to.window(self.driver.window_handles[1])
 
-        time.sleep(10)
-
-        self.driver.find_element(By.ID, "0").click()
-
         time.sleep(12)
 
-        self.driver.find_element(By.ID, "codigo").send_keys(evento.modelo)
+        for evento in eventos:
+            self.driver.find_element(By.ID, "0").click()
 
-        # ? Preguntar que se pone en este campo
-        # self.driver.find_element(By.ID, "litModelo").send_keys("No se")
+            time.sleep(10)
 
-        self.driver.find_element(By.ID, "texto").send_keys(evento.descripcion)
+            self.driver.find_element(By.ID, "codigo").send_keys(evento.modelo)
 
-        time.sleep(5)
+            # ? Preguntar que se pone en este campo
+            # self.driver.find_element(By.ID, "litModelo").send_keys("No se")
+
+            self.driver.find_element(By.ID, "texto").send_keys(evento.descripcion)
+
+            self.driver.find_element(
+                By.XPATH, f"//*[contains(text(), 'Atrás')]"
+            ).click()
+            # self.driver.find_element(By.XPATH, f"//*[contains(text(), 'Grabar')]").click()
+
+            time.sleep(5)
 
         self.driver.close()

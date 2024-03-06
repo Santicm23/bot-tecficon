@@ -25,3 +25,15 @@ class Evento:
     usuario_creacion: str
     notificar: str
     modelo: int = 9127  # ? preguntar
+
+    def __eq__(self, __value: object) -> bool:
+        if not isinstance(__value, Evento):
+            return False
+        return (
+            self.numero_siniestro == __value.numero_siniestro
+            and self.fecha == __value.fecha
+            and self.descripcion == __value.descripcion
+            and self.usuario_creacion == __value.usuario_creacion
+            and self.notificar == __value.notificar
+            and self.modelo == __value.modelo
+        )

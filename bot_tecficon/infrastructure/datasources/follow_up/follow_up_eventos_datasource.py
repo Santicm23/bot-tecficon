@@ -50,7 +50,9 @@ class FollowUpEventosDatasource(EventosDatasource):
         return []
 
     @override
-    def add_evento_to_siniestro(self, evento: Evento, id_siniestro: int) -> None:
+    def add_eventos_to_siniestro(
+        self, eventos: list[Evento], id_siniestro: int
+    ) -> None:
         self.driver = webdriver.Chrome()
 
         login_follow_up(self.driver)

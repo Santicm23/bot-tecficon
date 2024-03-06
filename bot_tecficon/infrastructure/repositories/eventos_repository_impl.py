@@ -14,5 +14,7 @@ class EventosRepositoryImpl(EventosRepository):
         return self.datasource.get_eventos_by_siniestro(id_siniestro)
 
     @override
-    def add_evento_to_siniestro(self, evento: Evento, id_siniestro: int) -> None:
-        return self.datasource.add_evento_to_siniestro(evento, id_siniestro)
+    def add_eventos_to_siniestro(
+        self, eventos: list[Evento], id_siniestro: int
+    ) -> None:
+        return self.datasource.add_eventos_to_siniestro(eventos, id_siniestro)

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 """
 {
@@ -30,6 +30,8 @@ from dataclasses import dataclass
 class Victima:
     id_siniestro: int
     nombre: str
-    telefono: str
+    tipo_documento: str
+    numero_documento: int
     apoderado: str
-    observacion_abogado: str
+    telefono: str | None = field(default=None)
+    observacion_abogado: str | None = field(default=None)

@@ -43,7 +43,13 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
             self.driver.quit()
             raise SiniestroNoExisteError(id_siniestro, "Allianz")
 
-        placa = self.driver.find_element(By.ID, "vehiclePlate").get_attribute("value")
+        placa: str  # FIXME
+        try:
+            placa = str(
+                self.driver.find_element(By.ID, "vehiclePlate").get_attribute("value")
+            )
+        except:
+            placa = " "
 
         fecha_asignacion_siniestro = self.str_optional_to_str(
             self.driver.find_element(By.ID, "orderDate").get_attribute("value")
@@ -80,11 +86,15 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
 
         etapa_proceso_penal = desc_instancia_procedimiento[0]
 
-        concepto_responsabilidad = (
-            ("Evidente")
-            if "con" in desc_instancia_procedimiento[1].lower()
-            else ("Inexistente")
-        )  # FIXME preguntar
+        concepto_responsabilidad: str
+        try:
+            concepto_responsabilidad = (
+                ("Evidente")
+                if "con" in desc_instancia_procedimiento[1].lower()
+                else ("Inexistente")
+            )
+        except:
+            concepto_responsabilidad = "Inexistente"
 
         lesiones = self.driver.find_element(By.ID, "orderTypeDesc").get_attribute(
             "value"
@@ -102,9 +112,13 @@ class AllianzSiniestrosDatasource(SiniestrosDatasource):
             "value"
         )
 
-        conductor_asegurado = self.driver.find_element(
-            By.ID, "driverName"
-        ).get_attribute("value")
+        conductor_asegurado: str  # FIXME
+        try:
+            conductor_asegurado = str(
+                self.driver.find_element(By.ID, "driverName").get_attribute("value")
+            )
+        except:
+            conductor_asegurado = " "
 
         informe_abogado = self.driver.find_element(
             By.ID, "incidentVersion"
